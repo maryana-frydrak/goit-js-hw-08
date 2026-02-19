@@ -65,25 +65,27 @@ const images = [
 ];
 
 document.body.innerHTML = `<li class="gallery-item">
-    < a class="gallery-link" href = "large-image.jpg" >
-        <img
-            class="gallery-image"
-            src="small-image.jpg"
-            data-source="large-image.jpg"
-            alt="Image description"
-        />
-  </ >
-</li >`;
+  <a class="gallery-link" href="large-image.jpg">
+    <img
+      class="gallery-image"
+      src="small-image.jpg"
+      data-source="large-image.jpg"
+      alt="Image description"
+    />
+  </a>
+</li>
+`;
+
 
 const gallery = document.querySelector(".gallery");
 
 gallery.addEventListener("click", (e) => {
-    event.preventDefault();
-    if (event.target.nodeName !== "IMG") {
+    e.preventDefault();
+    if (e.target.nodeName !== "IMG") {
         return;
     }
 
-    const largeImageUrl = event.target.dataset.source;
+    const largeImageUrl = e.target.dataset.source;
 
     console.log(largeImageUrl);
 })
