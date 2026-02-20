@@ -64,28 +64,32 @@ const images = [
     },
 ];
 
-document.body.innerHTML = `<li class="gallery-item">
-  <a class="gallery-link" href="large-image.jpg">
-    <img
-      class="gallery-image"
-      src="small-image.jpg"
-      data-source="large-image.jpg"
-      alt="Image description"
-    />
-  </a>
-</li>
-`;
 
+function createGalleryMarkup(items) {
+    return items
+        .map(({ preview, original, description }) => {
+            return `
+        <div class="gallery__item">
+          <a class="gallery__link" href="${original}">
+            <img
+              class="gallery__image"
+              src="${preview}"
+              alt="${description}"
+            />
+          </a>
+        </div>
+      `;
+        })
+        .join('')
+};
 
-const gallery = document.querySelector(".gallery");
+galleryContainer.addEventLisener("click", onGalleryItemClick);
+e.preventDefault();
 
-gallery.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (e.target.nodeName !== "IMG") {
-        return;
-    }
+const isImage = e.target.classList.contains("gallery-image");
+if (!isImage)
+    return;
 
-    const largeImageUrl = e.target.dataset.source;
+const largeImageUrl = e.target.dataset.sourse;
 
-    console.log(largeImageUrl);
-})
+openModal(largeImageUrl);
