@@ -64,32 +64,44 @@ const images = [
     },
 ];
 
+const galleryContainer = document.querySelector('.gallery');
 
 function createGalleryMarkup(items) {
     return items
         .map(({ preview, original, description }) => {
             return `
-        <div class="gallery__item">
-          <a class="gallery__link" href="${original}">
-            <img
-              class="gallery__image"
-              src="${preview}"
-              alt="${description}"
-            />
-          </a>
-        </div>
-      `;
+      <li class="gallery-item">
+        <a class="gallery-link" href="${original}">
+          <img
+            class="gallery-image"
+            src="${preview}"
+            data-source="${original}"
+            alt="${description}"
+          />
+        </a>
+      </li>`;
         })
-        .join('')
-};
+        .join('');
+}
+
+galleryContainer.innerHTML = createGalleryMarkup(images);
 
 galleryContainer.addEventLisener("click", onGalleryItemClick);
-e.preventDefault();
 
-const isImage = e.target.classList.contains("gallery-image");
-if (!isImage)
-    return;
+function onGalleryItemClick(event) {
+    event.preventDefault();
+    const isImageEl = event.target.classList.contains('gallery-image');
+    if (!isImageEl) return;
 
-const largeImageUrl = e.target.dataset.sourse;
+    const largeImageUrl = event.target.dataset.source;
 
-openModal(largeImageUrl);
+    const instance = basicLightbox.create(`
+    <img src="${largeImageUrl}" width="1112" height="640">
+    `);
+
+    instance.show();
+
+    window.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape') instance.close();
+    }, { once: true });
+}
