@@ -96,12 +96,12 @@ function onGalleryItemClick(e) {
     const largeImageUrl = e.target.dataset.source;
 
     const instance = basicLightbox.create(`
-    <img src="${largeImageUrl}" width="360" height="200">
+    <img src="${largeImageUrl}" width="1112" height="640">
     `);
 
     instance.show();
 
     window.addEventListener('keydown', (e) => {
         if (e.code === 'Escape') instance.close();
-    }, { once: true });
+    }, { once: true })
 }
