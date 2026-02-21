@@ -86,7 +86,7 @@ function createGalleryMarkup(items) {
 
 galleryContainer.innerHTML = createGalleryMarkup(images);
 
-galleryContainer.addEventLisener("click", onGalleryItemClick);
+galleryContainer.addEventListener("click", onGalleryItemClick);
 
 function onGalleryItemClick(event) {
     event.preventDefault();
